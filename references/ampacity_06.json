@@ -1,0 +1,12 @@
+{
+  "kind": "ampacity",
+  "variant": 6,
+  "inputs": [
+    240,
+    {
+      "ambient": 0.8799999999999999,
+      "grouping": 0.8
+    }
+  ],
+  "expected": 168.96
+}

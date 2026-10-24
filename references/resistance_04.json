@@ -1,0 +1,10 @@
+{
+  "kind": "resistance",
+  "variant": 4,
+  "inputs": [
+    0.2,
+    70,
+    0.00393
+  ],
+  "expected": 0.2393
+}

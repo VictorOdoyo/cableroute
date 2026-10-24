@@ -2,6 +2,8 @@
 
 Cable sizing and feeder design studio with explicit catalog provenance, constraint screening, and discounted loss economics.
 
+![Engineering workbench](docs/images/workbench.png)
+
 ## Run
 
 ```powershell

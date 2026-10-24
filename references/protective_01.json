@@ -1,0 +1,10 @@
+{
+  "kind": "protective",
+  "variant": 1,
+  "inputs": [
+    10,
+    115,
+    105
+  ],
+  "expected": 10.952380952380953
+}

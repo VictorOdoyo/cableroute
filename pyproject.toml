@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "cableroute"
+version = "1.0.0"
+description = "Cable sizing and feeder design studies"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.26,<3"]
+license = "MIT"
+authors = [{name = "Victor Odoyo"}]
+[project.scripts]
+cableroute = "cableroute.cli:main"
+[tool.setuptools.packages.find]
+include = ["cableroute*"]
+[tool.setuptools.package-data]
+cableroute = ["web/*", "examples/*.json"]

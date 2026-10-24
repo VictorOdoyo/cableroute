@@ -1,0 +1,10 @@
+{
+  "kind": "thermal",
+  "variant": 5,
+  "inputs": [
+    5000,
+    0.25,
+    125
+  ],
+  "expected": 20.0
+}

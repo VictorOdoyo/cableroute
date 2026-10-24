@@ -10,7 +10,7 @@ def number(value,name,minimum=0,strict=False):
 def demand_current(power_kw,voltage_v,pf=1,phases=3,efficiency=1,demand=1):
     p=number(power_kw,'power');v=number(voltage_v,'voltage',strict=True)
     f=number(pf,'power factor',strict=True);e=number(efficiency,'efficiency',strict=True);d=number(demand,'demand')
-    if f>1 or e>1 or d>1 or phases not in (1,3):raise ValueError('Invalid factor or phase count')
+    if f>1 or e>1 or d>1 or isinstance(phases,bool) or phases not in (1,3):raise ValueError('Invalid factor or phase count')
     return p*1000*d/(v*f*e*(math.sqrt(3) if phases==3 else 1))
 
 def resistance_at(r20,temperature,alpha=.00393):
@@ -31,6 +31,7 @@ def voltage_drop(current,length_m,r_ohm_km,x_ohm_km,pf,voltage_v,phases=3,leadin
     return {'volts':drop,'percent':100*drop/v}
 
 def thermal_area(fault_a,seconds,k):
+    if number(seconds,'duration')>5:raise ValueError('Adiabatic duration is limited to 5 seconds; use a transient thermal model for longer faults')
     return number(fault_a,'fault current')*math.sqrt(number(seconds,'duration'))/number(k,'adiabatic k',strict=True)
 
 def parallel_share(current,impedances):
@@ -74,6 +75,8 @@ def design(model):
     if isinstance(n,bool) or not isinstance(n,int) or not 1<=n<=64:raise ValueError('parallel_runs must be 1..64')
     rows=[]
     if not model.get('catalog'):raise ValueError('Catalog is empty')
+    ids=[row['id'] for row in model['catalog']]
+    if any(not isinstance(key,str) or not key.strip() for key in ids) or len(ids)!=len(set(ids)):raise ValueError('Catalog IDs must be nonempty unique strings')
     for cable in model['catalog']:
         for key in ('source','edition','installation','material'):
             if not cable.get(key):raise ValueError(f'Catalog entry needs {key}')
